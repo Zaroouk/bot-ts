@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Character Stats Image Download</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="images.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      @font-face {
+        font-family: font-genshin;
+        src: url("/fonts/zh-cn.ttf");
+      }
+      #capture {
+        border: 1px solid #000;
+        padding: 20px;
+        background-color: #fff; /* Ensure there's a solid background */
+        /* z-index:1 */
+      }
+      #salute{
+    font-family: 'font-genshin', sans-serif;
+    src:url("fonts/zh-cn.ttf")
+}
+
+#splash-img{
+    overflow: hidden;
+    width:44rem;
+    /* height: 10rem; */
+    object-fit: cover;
+    object-position:50% 10%;
+    transform: translate(0,5rem);
+    height:100vh;
+    white-space: normal;
+    position:relative;
+    z-index: 0;
+    
+    /* background-color: red;    */
+}
+#artifacts{
+  position:relative;
+  z-index:20;
+}
+    </style>
+  </head>
+  <body id="salute">
+    <!-- component to capture -->
+    <div class="flex h-screen w-[140vw] items-center justify-center bg-gray-50">
+      <div
+        id="capture"
+        class="w-full rounded-lg bg-white px-8 py-4 shadow-md m-4 bg-[url('{{BackgroundElement}}')] bg-cover"
+      >
+        <div class="flex gap-10 justify-around">
+          <img
+            id="splash-img"
+            class=""
+            src="{{SplashImage}}"
+            alt="asr"
+          />
+          
+          <ul
+            class="flex flex-col gap-2 px-1 w-[25rem] justify-center mt-[7rem]"
+          >
+          <div class="my-5 text-white flex justify-between">
+            <!-- <h1 class="text-xl">Raiden Shogun</h1> -->
+            <h1 class="text-xl">{{Name}}</h1>
+            <div class="flex gap-2">
+              <h1 class="text-xl">Nivel</h1>
+              <div class="text-xl">{{Level}}/<span>{{MaxLevel}}</span></div>
+            </div>
+          </div>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img class="h-5" src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639947/svgs/atributes/hp_zgkiju.svg" id="hp"/>
+                <h5 id="salute" class="text-white">
+                  Vida</h5>
+                </div>
+                <h5 id="salute" class="text-white">{{Hp}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img class="h-5" src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639950/svgs/atributes/atq_m97qxl.svg" id="atq" />
+                <h5 id="salute" class="text-white">
+                  ATQ
+                </h5>
+              </div>
+              <h5 id="salute" class="text-white">{{Attack}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img class="h-5" src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639946/svgs/atributes/def_y0lsq3.svg" id="def" />
+                <h5 id="salute" class="text-white">DEF</h5>
+              </div>
+              <h5 id="salute" class="text-white">{{Deffense}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img class="h-5" src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639948/svgs/atributes/maestria_dwblhq.svg" id="maestria"/>
+                <h5 id="salute" class="text-white">
+                  Maestria Elemental
+                </h5>
+              </div>
+              <h5 id="salute" class="text-white">{{ElementalMastery}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+              <img class="h-5" src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639947/svgs/atributes/crit_rate_xdsqvq.svg" id="crit_rate"/>
+              <h5 id="salute" class="text-white">Prob. CRIT</h5>
+            </div>
+            <h5 id="salute" class="text-white">{{CritRate}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img class="h-5" src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639947/svgs/atributes/crit_dmg_zjv1ip.svg" id="crit_dmg"/>
+                <h5 id="salute" class="text-white">
+                  
+                  Dano CRIT</h5>
+                </div>
+                <h5 id="salute" class="text-white">{{CritDamage}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img
+                src="https://res.cloudinary.com/do0bxzfhq/image/upload/v1731639949/svgs/atributes/recarga_energia_w4nroc.svg"
+                  alt="recharge"
+                  class="h-5"
+                  id="recarga"
+                />
+                <h5 id="salute" class="text-white">
+                  Recarga de Energia
+                </h5>
+              </div>
+              <h5 id="salute" class="text-white">{{EnergyRecharge}}</h5>
+            </li>
+            <li class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <img class="h-5" src="{{IconElementalDmg}}" id="elemental-dmg"/>
+                <h5 id="salute" class="text-white">
+                  Bono de Dano {{Element}}
+                </h5>
+              </div>
+              <h5 id="salute" class="text-white">{{ElementalDamage}}</h5>
+            </li>
+
+
+            
+            <div class="flex p-3 mt-[4rem] bg-white border border-gray-200 rounded-xl shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <img  class="mx-auto block h-[8rem] rounded-lg"  alt="art cover" loading="lazy" src='{{Weapon.Image}}' />
+              <div class="sm:w-8/12 pl-0 pt-2 flex ml-5">
+                <div class="space-y-2">
+                  <div class="space-y-4">
+                    <h4 class="text-white text-center">
+                      {{Weapon.Name}}
+                    </h4>
+                  </div>
+                  
+                  <div>
+                  <div class="flex items-center justify-around flex-col gap-3 my-5">
+                    <div class="text-grey-500 flex flex-row space-x-1">
+                      
+                       <img class="h-5" src="{{Weapon.MainStatIcon}}" id="weapon-base"/>
+                      <p class="text-md text-white">{{Weapon.MainStat}}</p>
+                    </div>
+          
+                    <div class="text-grey-500 flex flex-row space-x-1">
+                      
+                       <img class="h-5" alt='Maestria Elemental' src="{{Weapon.SecondStatIcon}}" id="weapon-main-stat"/>
+                      <p class="text-md text-white">{{Weapon.SecondStat}}</p>
+                    </div>
+                    <div class="text-grey-500 flex flex-row space-x-1">
+                      
+                        <p id="salute" class="text-white">R</p>
+                      <p id="salute" class="text-md text-white">{{Weapon.Refinament}}</p>
+                    </div>
+                  </div>
+          
+          
+                    <div class="text-grey-500 flex flex-row space-x-1 w-full justify-center my-4">
+                      <p id="salute" class="text-white text-md">Level </p>
+                      <p id="salute" class="text-white text-md">{{Weapon.Level}}/<span>{{Weapon.MaxLevel}}</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<div>
+  <!-- artifacts   -->
+   <div id="artifacts" class="flex mt-10 justify-center gap-5">
+
+    {{#each Artifacts}}
+
+     <div class="flex p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div>
+        <img class="w-[7rem]" src="{{{this.Image}}}"/>
+        <div class="flex gap-2 justify-center">
+          <img class="h-5 overflow-hidden" src="{{this.MainStatIcon}}" id="main-stat"/>
+          <p id="salute" class="text-white text-lg">{{this.MainStatValue}}</p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+        {{#each this.SubStats}}
+
+        <a href="#" class="flex p-3 bg-white gap-2 border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-5" src="{{this.Icon}}" id="sub-stat"/>
+          <p id="salute" class="text-white text-lg">{{this.Value}}</p>
+        </a>
+
+        {{/each}}
+
+      </div>
+       
+     </div>
+     {{/each}}
+
+
+
+
+     
+
+
+
+     <!-- <div class="flex p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div>
+        <img class="w-[7rem]" src="https://static.wikia.nocookie.net/gensin-impact/images/d/d6/Item_Sundered_Feather.png"/>
+        <div class="flex gap-3 justify-center">
+          <img class="w-5" src="/svgs/atributes/atq.svg"/>
+          <p id="salute" class="text-white text-lg">233</p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="https://static.wikia.nocookie.net/gensin-impact/images/7/71/Icon_Attribute_Attack.png" />
+          <p id="salute" class="text-white text-lg">+20%</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 content-center bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="/svgs/atributes/hp.svg"/>
+          <p id="salute" class="text-white text-lg">232</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="svgs/atributes/crit_dmg.svg"/>
+          <p id="salute" class="text-white">23%</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="svgs/atributes/recarga_energia.svg"/>
+          <p id="salute" class="text-white">12%</p>
+        </a>
+
+      </div>
+       
+     </div>
+
+     <div class="flex p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div>
+        <img class="w-[7rem]" src="https://static.wikia.nocookie.net/gensin-impact/images/d/d6/Item_Sundered_Feather.png"/>
+        <div class="flex gap-3 justify-center">
+          <img class="w-5" src="/svgs/atributes/atq.svg"/>
+          <p id="salute" class="text-white text-lg">233</p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="https://static.wikia.nocookie.net/gensin-impact/images/7/71/Icon_Attribute_Attack.png" />
+          <p id="salute" class="text-white text-lg">+20%</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 content-center bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="/svgs/atributes/hp.svg"/>
+          <p id="salute" class="text-white text-lg">232</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="svgs/atributes/crit_dmg.svg"/>
+          <p id="salute" class="text-white">23%</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="svgs/atributes/recarga_energia.svg"/>
+          <p id="salute" class="text-white">12%</p>
+        </a>
+
+      </div>
+       
+     </div>
+
+
+     <div class="flex p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div>
+        <img class="w-[7rem]" src="https://static.wikia.nocookie.net/gensin-impact/images/d/d6/Item_Sundered_Feather.png"/>
+        <div class="flex gap-3 justify-center">
+          <img class="w-5" src="/svgs/atributes/atq.svg"/>
+          <p id="salute" class="text-white text-lg">233</p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="https://static.wikia.nocookie.net/gensin-impact/images/7/71/Icon_Attribute_Attack.png" />
+          <p id="salute" class="text-white text-lg">+20%</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 content-center bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="/svgs/atributes/hp.svg"/>
+          <p id="salute" class="text-white text-lg">232</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="svgs/atributes/crit_dmg.svg"/>
+          <p id="salute" class="text-white">23%</p>
+        </a>
+
+        <a href="#" class="flex gap-2 p-3 bg-white border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <img class="h-7" src="svgs/atributes/recarga_energia.svg"/>
+          <p id="salute" class="text-white">12%</p>
+        </a>
+
+      </div>
+       
+     </div> -->
+
+   </div>
+</div>
+
+
+
+
+  
+
+
+
+
+          </ul>
+          
+        </div>
+        
+
+        
+
+
+
+  
+	
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
